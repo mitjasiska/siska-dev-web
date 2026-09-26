@@ -1,15 +1,18 @@
 ---
 import heroAgent from '../assets/hero/hero-agent.svg?raw';
 
-// First crest / local transit in seconds on the shared 10.8s timeline.
+// Authored crest / transit values stay on the original reference timeline.
+// Change only playbackDurationSeconds to scale all stages, fades and overlaps.
 // Fixed axes follow each region; only their stop colors change, never positions.
-const cycle = 10.8;
+const referenceTimelineSeconds = 10.8;
+const playbackDurationSeconds = 12.8;
 const regions = [
   { id: 'intent',      start: 0,    transit: 1,    axis: [320, 62, 320, 198] },
   { id: 'plan',        start: 1.25, transit: 1.25, axis: [306, 206, 140, 290] },
   { id: 'build',       start: 2.4,  transit: 1.25, axis: [334, 206, 500, 290] },
   { id: 'agent-left',  start: 3.5,  transit: 1.6,  axis: [110, 294, 306, 424] },
-  { id: 'agent-right', start: 4.8,  transit: 1.6,  axis: [530, 294, 334, 424] },
+  // Receive near the center, then spread down/out through the torso and arm.
+  { id: 'agent-right', start: 4.8,  transit: 1.6,  axis: [334, 294, 400, 500] },
   { id: 'review',      start: 6.3,  transit: .75,  axis: [320, 426, 320, 482] },
   { id: 'commit',      start: 7.15, transit: 1.8,  axis: [268, 482, 240, 707] },
   { id: 'deploy',      start: 8.65, transit: 1.8,  axis: [372, 482, 400, 707] },
@@ -18,7 +21,7 @@ const regions = [
 // Build-time decoration only: keep the source SVG, paths, text and opacity intact.
 let artwork = heroAgent;
 const gradients = regions.map(({ id, start, transit, axis: [x1, y1, x2, y2] }) => {
-  const phase = (position: number) => ((start + position * transit) / cycle - 1).toFixed(6);
+  const phase = (position: number) => ((start + position * transit) / referenceTimelineSeconds - 1).toFixed(6);
   const stops = Array.from({ length: 7 }, (_, i) =>
     `<stop offset="${i / 6}" style="--flow-phase:${phase(i / 6)}" />`
   ).join('');
@@ -44,7 +47,7 @@ const gradients = regions.map(({ id, start, transit, axis: [x1, y1, x2, y2] }) =
 artwork = artwork.replace('</desc>', `</desc><defs>${gradients}</defs>`);
 ---
 
-<div class="hero-agent" style={`--flow-duration:${cycle}s`} set:html={artwork} />
+<div class="hero-agent" style={`--flow-duration:${playbackDurationSeconds}s`} set:html={artwork} />
 
 <style>
   .hero-agent {
@@ -81,7 +84,7 @@ artwork = artwork.replace('</desc>', `</desc><defs>${gradients}</defs>`);
     }
   }
 
-  /* A .65s soft arrival and .86s trailing fade at the default duration.
+  /* Arrival and trailing fade use fixed percentages of the playback duration.
      Each fixed stop crests slightly later along its axis. The longer tail
      overlaps the next region; matching endpoints keep repeated cycles quiet. */
   @keyframes workflow-flow {
