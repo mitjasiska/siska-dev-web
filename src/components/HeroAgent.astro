@@ -8,6 +8,7 @@ import heroAgent from '../assets/hero/hero-agent.svg?raw';
   .hero-agent {
     --hero-ink: var(--color-ink, #222226);
     --hero-accent: var(--color-accent, #7c3aed);
+    --flow-duration: 10.8s;
     width: 100%;
     max-width: 560px;
     margin-inline: auto;
@@ -19,61 +20,50 @@ import heroAgent from '../assets/hero/hero-agent.svg?raw';
     height: auto;
   }
 
-  /* Only the word and the existing middle-tone batch participate. The dense
-     black marks and faint background fragments retain their original color. */
-  .hero-agent :global([data-part] > :is(text, path[opacity=".46"])) {
-    --rest-opacity: 1;
-    --active-opacity: 1;
+  /* A region owns one color. Its word and every local fragment inherit it,
+     retaining the SVG's original opacity hierarchy and resting geometry. */
+  .hero-agent :global([data-part]) {
+    --flow-track: workflow-flow;
     color: var(--hero-ink);
   }
 
-  .hero-agent :global([data-part] > path[opacity=".46"]) {
-    --rest-opacity: .46;
-    --active-opacity: .78;
-    stroke: currentColor;
+  /* Crests, in tenths of a cycle:
+     Intent → Plan → Build → Left → Right → Left → Right → Review → Commit → Deploy.
+     Negative phases start an already-continuous loop, including Deploy → Intent. */
+  .hero-agent :global([data-part="intent"]) { --flow-phase: 0; }
+  .hero-agent :global([data-part="plan"]) { --flow-phase: -.9; }
+  .hero-agent :global([data-part="build"]) { --flow-phase: -.8; }
+  .hero-agent :global([data-part="agent-left"]) { --flow-phase: -.7; }
+  .hero-agent :global([data-part="agent-right"]) { --flow-phase: -.6; }
+  .hero-agent :global([data-part="review"]) { --flow-phase: -.3; }
+  .hero-agent :global([data-part="commit"]) { --flow-phase: -.2; }
+  .hero-agent :global([data-part="deploy"]) { --flow-phase: -.1; }
+
+  .hero-agent :global(:is([data-part="agent-left"], [data-part="agent-right"])) {
+    --flow-track: agent-flow;
   }
 
-  .hero-agent :global([data-part="intent"]) { --stage-delay: 700ms; }
-  .hero-agent :global([data-part="plan"], [data-part="build"]) { --stage-delay: 1550ms; }
-  .hero-agent :global([data-part="agent-left"], [data-part="agent-right"]) { --stage-delay: 2400ms; }
-  .hero-agent :global([data-part="review"]) { --stage-delay: 3250ms; }
-  .hero-agent :global([data-part="commit"], [data-part="deploy"]) { --stage-delay: 4100ms; }
-
-  /* Static by default. One pass, with 850ms between stages and overlapping
-     fades; the final stage settles back to neutral at 5.35 seconds. */
+  /* Static neutral is the default, including reduced-motion preferences.
+     There are no geometry, stroke-width or fragment-level animations. */
   @media (prefers-reduced-motion: no-preference) {
-    .hero-agent :global([data-part] > :is(text, path[opacity=".46"])) {
-      animation: workflow-stage 1250ms ease-in-out var(--stage-delay) 1;
-      transition: color 250ms ease, opacity 250ms ease;
-    }
-  }
-
-  @keyframes workflow-stage {
-    0%, 100% {
-      color: var(--hero-ink);
-      opacity: var(--rest-opacity);
-    }
-    25%, 65% {
-      color: var(--hero-accent);
-      opacity: var(--active-opacity);
-    }
-  }
-
-  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     .hero-agent :global([data-part]) {
-      pointer-events: bounding-box;
+      animation: var(--flow-track) var(--flow-duration) ease-in-out infinite;
+      animation-delay: calc(var(--flow-duration) * var(--flow-phase));
     }
+  }
 
-    /* Hover temporarily overrides the sequence's colors, not its clock.
-       Leaving a group never restarts or loops the initial animation. */
-    .hero-agent:has(:global([data-part]:hover)) :global([data-part] > :is(text, path[opacity=".46"])) {
-      color: var(--hero-ink) !important;
-      opacity: var(--rest-opacity) !important;
-    }
+  /* Each smooth crest overlaps its neighbors; there is no held on/off step.
+     Matching endpoint colors and easing make the loop seam continuous. */
+  @keyframes workflow-flow {
+    0%, 100% { color: var(--hero-accent); }
+    13%, 87% { color: var(--hero-ink); }
+  }
 
-    .hero-agent:has(:global([data-part]:hover)) :global([data-part]:hover > :is(text, path[opacity=".46"])) {
-      color: var(--hero-accent) !important;
-      opacity: var(--active-opacity) !important;
-    }
+  /* Two gentle crests per agent. The valley retains activity while the
+     opposite agent takes the lead, instead of blinking back to neutral. */
+  @keyframes agent-flow {
+    0%, 20%, 100% { color: var(--hero-accent); }
+    10% { color: color-mix(in srgb, var(--hero-accent) 45%, var(--hero-ink)); }
+    33%, 87% { color: var(--hero-ink); }
   }
 </style>
