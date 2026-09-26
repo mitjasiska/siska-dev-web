@@ -1,0 +1,79 @@
+---
+import heroAgent from '../assets/hero/hero-agent.svg?raw';
+---
+
+<div class="hero-agent" set:html={heroAgent} />
+
+<style>
+  .hero-agent {
+    --hero-ink: var(--color-ink, #222226);
+    --hero-accent: var(--color-accent, #7c3aed);
+    width: 100%;
+    max-width: 560px;
+    margin-inline: auto;
+  }
+
+  .hero-agent :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Only the word and the existing middle-tone batch participate. The dense
+     black marks and faint background fragments retain their original color. */
+  .hero-agent :global([data-part] > :is(text, path[opacity=".46"])) {
+    --rest-opacity: 1;
+    --active-opacity: 1;
+    color: var(--hero-ink);
+  }
+
+  .hero-agent :global([data-part] > path[opacity=".46"]) {
+    --rest-opacity: .46;
+    --active-opacity: .78;
+    stroke: currentColor;
+  }
+
+  .hero-agent :global([data-part="intent"]) { --stage-delay: 700ms; }
+  .hero-agent :global([data-part="plan"], [data-part="build"]) { --stage-delay: 1550ms; }
+  .hero-agent :global([data-part="agent-left"], [data-part="agent-right"]) { --stage-delay: 2400ms; }
+  .hero-agent :global([data-part="review"]) { --stage-delay: 3250ms; }
+  .hero-agent :global([data-part="commit"], [data-part="deploy"]) { --stage-delay: 4100ms; }
+
+  /* Static by default. One pass, with 850ms between stages and overlapping
+     fades; the final stage settles back to neutral at 5.35 seconds. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-agent :global([data-part] > :is(text, path[opacity=".46"])) {
+      animation: workflow-stage 1250ms ease-in-out var(--stage-delay) 1;
+      transition: color 250ms ease, opacity 250ms ease;
+    }
+  }
+
+  @keyframes workflow-stage {
+    0%, 100% {
+      color: var(--hero-ink);
+      opacity: var(--rest-opacity);
+    }
+    25%, 65% {
+      color: var(--hero-accent);
+      opacity: var(--active-opacity);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .hero-agent :global([data-part]) {
+      pointer-events: bounding-box;
+    }
+
+    /* Hover temporarily overrides the sequence's colors, not its clock.
+       Leaving a group never restarts or loops the initial animation. */
+    .hero-agent:has(:global([data-part]:hover)) :global([data-part] > :is(text, path[opacity=".46"])) {
+      color: var(--hero-ink) !important;
+      opacity: var(--rest-opacity) !important;
+    }
+
+    .hero-agent:has(:global([data-part]:hover)) :global([data-part]:hover > :is(text, path[opacity=".46"])) {
+      color: var(--hero-accent) !important;
+      opacity: var(--active-opacity) !important;
+    }
+  }
+</style>

@@ -1,5 +1,5 @@
 ---
-
+import HeroAgent from '../components/HeroAgent.astro';
 ---
 
 <html lang="en">
@@ -9,9 +9,51 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>siska.dev — Agentic software development</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<main>
+			<section class="hero" aria-labelledby="hero-title">
+				<div class="hero-copy">
+					<p class="wordmark">siska.dev</p>
+					<h1 id="hero-title">Agentic software development.</h1>
+				</div>
+				<HeroAgent />
+			</section>
+		</main>
 	</body>
 </html>
+
+<style>
+	:global(:root) {
+		--color-ink: #222226;
+		--color-accent: #7c3aed;
+		font-family: system-ui, sans-serif;
+		color: var(--color-ink);
+		background: #fafafa;
+	}
+
+	:global(*) { box-sizing: border-box; }
+	:global(body) { margin: 0; }
+
+	.hero {
+		display: grid;
+		grid-template-columns: 1fr 1.1fr;
+		align-items: center;
+		gap: 48px;
+		max-width: 1240px;
+		min-height: 100svh;
+		margin-inline: auto;
+		padding: 40px;
+	}
+
+	.hero-copy { min-width: 0; }
+	.wordmark { margin: 0 0 32px; font: 16px monospace; }
+	h1 { max-width: 9ch; margin: 0; font-size: clamp(40px, 5vw, 68px); font-weight: 500; line-height: 1.08; letter-spacing: -.045em; }
+
+	@media (max-width: 700px) {
+		.hero { grid-template-columns: 1fr; align-content: start; gap: 20px; min-height: 0; padding: 28px 16px; }
+		.wordmark { margin-bottom: 18px; font-size: 14px; }
+		h1 { max-width: 14ch; font-size: 38px; }
+	}
+</style>
