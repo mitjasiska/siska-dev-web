@@ -1,26 +1,49 @@
 ---
 import heroAgent from '../assets/hero/hero-agent.svg?raw';
 
-// Authored crest / transit values stay on the original reference timeline.
-// Change only playbackDurationSeconds to scale all stages, fades and overlaps.
+// Add one L → R exchange without compressing the existing 12.8s / 10.8s pace.
+const originalReferenceTimelineSeconds = 10.8;
+const additionalExchangeSeconds = 2.6;
+const referenceTimelineSeconds = originalReferenceTimelineSeconds + additionalExchangeSeconds;
+const playbackDurationSeconds = 12.8 * referenceTimelineSeconds / originalReferenceTimelineSeconds;
+
+// Authored crest / transit values use reference seconds. Only the later stages
+// shift; changing playbackDurationSeconds scales every passage and fade together.
 // Fixed axes follow each region; only their stop colors change, never positions.
-const referenceTimelineSeconds = 10.8;
-const playbackDurationSeconds = 12.8;
 const regions = [
   { id: 'intent',      start: 0,    transit: 1,    axis: [320, 62, 320, 198] },
   { id: 'plan',        start: 1.25, transit: 1.25, axis: [306, 206, 140, 290] },
   { id: 'build',       start: 2.4,  transit: 1.25, axis: [334, 206, 500, 290] },
-  { id: 'agent-left',  start: 3.5,  transit: 1.6,  axis: [110, 294, 306, 424] },
-  // Receive near the center, then spread down/out through the torso and arm.
-  { id: 'agent-right', start: 4.8,  transit: 1.6,  axis: [334, 294, 400, 500] },
-  { id: 'review',      start: 6.3,  transit: .75,  axis: [320, 426, 320, 482] },
-  { id: 'commit',      start: 7.15, transit: 1.8,  axis: [268, 482, 240, 707] },
-  { id: 'deploy',      start: 8.65, transit: 1.8,  axis: [372, 482, 400, 707] },
+  // Both agents receive at the inner chest before spreading down/out. This
+  // keeps the return to the left connected through the torso, not its outer arm.
+  { id: 'agent-left',  start: 3.5,  transit: 1.6,  axis: [306, 294, 240, 500], repeat: true },
+  { id: 'agent-right', start: 4.8,  transit: 1.6,  axis: [334, 294, 400, 500], repeat: true },
+  { id: 'review',      start: 6.3 + additionalExchangeSeconds,  transit: .75, axis: [320, 426, 320, 482] },
+  { id: 'commit',      start: 7.15 + additionalExchangeSeconds, transit: 1.8, axis: [268, 482, 240, 707] },
+  { id: 'deploy',      start: 8.65 + additionalExchangeSeconds, transit: 1.8, axis: [372, 482, 400, 707] },
 ];
+
+// Keep the original soft arrival and tail in reference seconds, rather than
+// lengthening them with the loop. Two crests give exactly L → R → L → R.
+const arrivalSeconds = .06 * originalReferenceTimelineSeconds;
+const tailSeconds = .08 * originalReferenceTimelineSeconds;
+const percentage = (seconds: number) => `${seconds / referenceTimelineSeconds * 100}%`;
+const flowKeyframes = `
+  @keyframes hero-workflow-flow {
+    0%, 100% { color: var(--hero-accent); }
+    ${percentage(tailSeconds)}, ${percentage(referenceTimelineSeconds - arrivalSeconds)} { color: var(--hero-ink); }
+  }
+  @keyframes hero-agent-flow {
+    0%, ${percentage(additionalExchangeSeconds)}, 100% { color: var(--hero-accent); }
+    ${percentage(tailSeconds)}, ${percentage(additionalExchangeSeconds - arrivalSeconds)},
+    ${percentage(additionalExchangeSeconds + tailSeconds)}, ${percentage(referenceTimelineSeconds - arrivalSeconds)} { color: var(--hero-ink); }
+  }
+`;
 
 // Build-time decoration only: keep the source SVG, paths, text and opacity intact.
 let artwork = heroAgent;
-const gradients = regions.map(({ id, start, transit, axis: [x1, y1, x2, y2] }) => {
+const gradients = regions.map(({ id, start, transit, repeat, axis: [x1, y1, x2, y2] }) => {
+  const track = repeat ? 'hero-agent-flow' : 'hero-workflow-flow';
   const phase = (position: number) => ((start + position * transit) / referenceTimelineSeconds - 1).toFixed(6);
   const stops = Array.from({ length: 7 }, (_, i) =>
     `<stop offset="${i / 6}" style="--flow-phase:${phase(i / 6)}" />`
@@ -37,17 +60,18 @@ const gradients = regions.map(({ id, start, transit, axis: [x1, y1, x2, y2] }) =
         ((Number(x) - x1) * dx + (Number(y) - 7 - y1) * dy) / (dx * dx + dy * dy)
       ));
       const label = contents.replace('<text ', `<text style="--flow-phase:${phase(position)}" `);
-      return `${opening} style="--flow-paint:url(#hero-flow-${id})"${attributes}${label}${closing}`;
+      return `${opening} style="--flow-paint:url(#hero-flow-${id});--flow-track:${track}"${attributes}${label}${closing}`;
     }
   );
 
-  return `<linearGradient id="hero-flow-${id}" gradientUnits="userSpaceOnUse"
+  return `<linearGradient id="hero-flow-${id}" style="--flow-track:${track}" gradientUnits="userSpaceOnUse"
     x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">${stops}</linearGradient>`;
 }).join('');
 artwork = artwork.replace('</desc>', `</desc><defs>${gradients}</defs>`);
 ---
 
 <div class="hero-agent" style={`--flow-duration:${playbackDurationSeconds}s`} set:html={artwork} />
+<style is:inline set:html={flowKeyframes} />
 
 <style>
   .hero-agent {
@@ -79,16 +103,9 @@ artwork = artwork.replace('</desc>', `</desc><defs>${gradients}</defs>`);
      override competes with these synchronized stop and whole-word colors. */
   @media (prefers-reduced-motion: no-preference) {
     .hero-agent :global(stop, [data-part] > text) {
-      animation: workflow-flow var(--flow-duration) ease-in-out infinite;
+      animation: var(--flow-track) var(--flow-duration) ease-in-out infinite;
       animation-delay: calc(var(--flow-duration) * var(--flow-phase));
     }
   }
 
-  /* Arrival and trailing fade use fixed percentages of the playback duration.
-     Each fixed stop crests slightly later along its axis. The longer tail
-     overlaps the next region; matching endpoints keep repeated cycles quiet. */
-  @keyframes workflow-flow {
-    0%, 100% { color: var(--hero-accent); }
-    8%, 94% { color: var(--hero-ink); }
-  }
 </style>
