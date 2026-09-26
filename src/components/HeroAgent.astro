@@ -1,14 +1,55 @@
 ---
 import heroAgent from '../assets/hero/hero-agent.svg?raw';
+
+// First crest / local transit in seconds on the shared 10.8s timeline.
+// Fixed axes follow each region; only their stop colors change, never positions.
+const cycle = 10.8;
+const regions = [
+  { id: 'intent',      start: 0,    transit: 1,    axis: [320, 62, 320, 198] },
+  { id: 'plan',        start: 1.25, transit: 1.25, axis: [306, 206, 140, 290] },
+  { id: 'build',       start: 2.4,  transit: 1.25, axis: [334, 206, 500, 290] },
+  { id: 'agent-left',  start: 3.5,  transit: 1.6,  axis: [110, 294, 306, 424] },
+  { id: 'agent-right', start: 4.8,  transit: 1.6,  axis: [530, 294, 334, 424] },
+  { id: 'review',      start: 6.3,  transit: .75,  axis: [320, 426, 320, 482] },
+  { id: 'commit',      start: 7.15, transit: 1.8,  axis: [268, 482, 240, 707] },
+  { id: 'deploy',      start: 8.65, transit: 1.8,  axis: [372, 482, 400, 707] },
+];
+
+// Build-time decoration only: keep the source SVG, paths, text and opacity intact.
+let artwork = heroAgent;
+const gradients = regions.map(({ id, start, transit, axis: [x1, y1, x2, y2] }) => {
+  const phase = (position: number) => ((start + position * transit) / cycle - 1).toFixed(6);
+  const stops = Array.from({ length: 7 }, (_, i) =>
+    `<stop offset="${i / 6}" style="--flow-phase:${phase(i / 6)}" />`
+  ).join('');
+
+  artwork = artwork.replace(
+    new RegExp(`(<g[^>]*data-part="${id}")([^>]*>)([\\s\\S]*?)(</g>)`),
+    (_, opening, attributes, contents, closing) => {
+      // The whole word follows the wave at its visual center, without a letter sweep.
+      const [, x, y] = contents.match(/<text x="([\d.]+)" y="([\d.]+)"/);
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      const position = Math.max(0, Math.min(1,
+        ((Number(x) - x1) * dx + (Number(y) - 7 - y1) * dy) / (dx * dx + dy * dy)
+      ));
+      const label = contents.replace('<text ', `<text style="--flow-phase:${phase(position)}" `);
+      return `${opening} style="--flow-paint:url(#hero-flow-${id})"${attributes}${label}${closing}`;
+    }
+  );
+
+  return `<linearGradient id="hero-flow-${id}" gradientUnits="userSpaceOnUse"
+    x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">${stops}</linearGradient>`;
+}).join('');
+artwork = artwork.replace('</desc>', `</desc><defs>${gradients}</defs>`);
 ---
 
-<div class="hero-agent" set:html={heroAgent} />
+<div class="hero-agent" style={`--flow-duration:${cycle}s`} set:html={artwork} />
 
 <style>
   .hero-agent {
     --hero-ink: var(--color-ink, #222226);
     --hero-accent: var(--color-accent, #7c3aed);
-    --flow-duration: 10.8s;
     width: 100%;
     max-width: 560px;
     margin-inline: auto;
@@ -20,50 +61,31 @@ import heroAgent from '../assets/hero/hero-agent.svg?raw';
     height: auto;
   }
 
-  /* A region owns one color. Its word and every local fragment inherit it,
-     retaining the SVG's original opacity hierarchy and resting geometry. */
+  /* Region-local paint preserves the original dark / medium / faint hierarchy. */
   .hero-agent :global([data-part]) {
-    --flow-track: workflow-flow;
+    stroke: var(--flow-paint);
     color: var(--hero-ink);
   }
 
-  /* Crests, in tenths of a cycle:
-     Intent → Plan → Build → Left → Right → Left → Right → Review → Commit → Deploy.
-     Negative phases start an already-continuous loop, including Deploy → Intent. */
-  .hero-agent :global([data-part="intent"]) { --flow-phase: 0; }
-  .hero-agent :global([data-part="plan"]) { --flow-phase: -.9; }
-  .hero-agent :global([data-part="build"]) { --flow-phase: -.8; }
-  .hero-agent :global([data-part="agent-left"]) { --flow-phase: -.7; }
-  .hero-agent :global([data-part="agent-right"]) { --flow-phase: -.6; }
-  .hero-agent :global([data-part="review"]) { --flow-phase: -.3; }
-  .hero-agent :global([data-part="commit"]) { --flow-phase: -.2; }
-  .hero-agent :global([data-part="deploy"]) { --flow-phase: -.1; }
-
-  .hero-agent :global(:is([data-part="agent-left"], [data-part="agent-right"])) {
-    --flow-track: agent-flow;
+  .hero-agent :global(stop) {
+    color: var(--hero-ink);
+    stop-color: currentColor;
   }
 
-  /* Static neutral is the default, including reduced-motion preferences.
-     There are no geometry, stroke-width or fragment-level animations. */
+  /* Neutral is the default for reduced motion. No parent animation or hover
+     override competes with these synchronized stop and whole-word colors. */
   @media (prefers-reduced-motion: no-preference) {
-    .hero-agent :global([data-part]) {
-      animation: var(--flow-track) var(--flow-duration) ease-in-out infinite;
+    .hero-agent :global(stop, [data-part] > text) {
+      animation: workflow-flow var(--flow-duration) ease-in-out infinite;
       animation-delay: calc(var(--flow-duration) * var(--flow-phase));
     }
   }
 
-  /* Each smooth crest overlaps its neighbors; there is no held on/off step.
-     Matching endpoint colors and easing make the loop seam continuous. */
+  /* A .65s soft arrival and .86s trailing fade at the default duration.
+     Each fixed stop crests slightly later along its axis. The longer tail
+     overlaps the next region; matching endpoints keep repeated cycles quiet. */
   @keyframes workflow-flow {
     0%, 100% { color: var(--hero-accent); }
-    13%, 87% { color: var(--hero-ink); }
-  }
-
-  /* Two gentle crests per agent. The valley retains activity while the
-     opposite agent takes the lead, instead of blinking back to neutral. */
-  @keyframes agent-flow {
-    0%, 20%, 100% { color: var(--hero-accent); }
-    10% { color: color-mix(in srgb, var(--hero-accent) 45%, var(--hero-ink)); }
-    33%, 87% { color: var(--hero-ink); }
+    8%, 94% { color: var(--hero-ink); }
   }
 </style>
