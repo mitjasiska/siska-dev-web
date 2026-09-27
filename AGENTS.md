@@ -8,6 +8,10 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Visual identity
+
+Before significant UI or visual changes, inspect `/review/identity` in the dev server. It documents the current hero, mark, favicon, colors, typography, and graphical language. Assets labeled `CURRENT / APPROVED` are the existing baseline; evolve them through explicit design work, not unrelated implementation. Extend this language rather than inventing a separate one. Historical experiments are reference material, not the current source of truth.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build
