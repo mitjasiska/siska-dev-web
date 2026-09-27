@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-  <title>siska.dev</title>
-  <!-- Small-size specialization of src/assets/brand/mark.svg.
-       Six scan levels, twelve fragments, 1.5px effective strokes at 16px. -->
+  <title>siska.dev R2-B</title>
+  <!-- Optical reduction of mark-b.svg. Crown slashes and jaw elbows keep
+       more hero punctuation. Omit the separate chin row so the jaw stays open. -->
   <style>
     svg { color: #222226; }
     .signal { stroke: #7c3aed; }
@@ -11,8 +11,7 @@
     }
   </style>
   <g stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
-    <!-- Split crown, temples, reflected elbows, jaw and split chin. -->
-    <path d="M11 4h2 M19 4h2 M6 9h3 M23 9h3 M3 14h2v2 M29 14h-2v2 M7 24h3 M22 24h3 M12 29h1 M19 29h1"/>
-    <path class="signal" d="M3 20h2 M27 20h2"/>
+    <path d="M10 3h3 M19 3h3 M4 7l2-2 M28 7l-2-2 M3 12h3v4 M29 12h-3v4 M3 21h3 M26 21h3 M9 25h4v3 M23 25h-4v3"/>
+    <path class="signal" d="M10 20h1 M21 20h1"/>
   </g>
 </svg>

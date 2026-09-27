@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-  <title>siska.dev</title>
-  <!-- Small-size specialization of src/assets/brand/mark.svg.
-       Six scan levels, twelve fragments, 1.5px effective strokes at 16px. -->
+  <title>siska.dev R2-C</title>
+  <!-- Same optical silhouette as favicon-a.svg. Only the signal changes:
+       one paired forehead scan, traced to INTENT y98, replaces side violet. -->
   <style>
     svg { color: #222226; }
     .signal { stroke: #7c3aed; }
@@ -11,8 +11,7 @@
     }
   </style>
   <g stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
-    <!-- Split crown, temples, reflected elbows, jaw and split chin. -->
-    <path d="M11 4h2 M19 4h2 M6 9h3 M23 9h3 M3 14h2v2 M29 14h-2v2 M7 24h3 M22 24h3 M12 29h1 M19 29h1"/>
-    <path class="signal" d="M3 20h2 M27 20h2"/>
+    <path d="M8 4h5 M19 4h5 M4 10h3v4 M28 10h-3v4 M7 19h2 M23 19h2 M7 24v1h4 M25 24v1h-4 M12 30h1 M19 30h1"/>
+    <path class="signal" d="M12 10h1 M19 10h1"/>
   </g>
 </svg>

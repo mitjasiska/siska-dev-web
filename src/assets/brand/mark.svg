@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" color="#222226" role="img" aria-label="siska.dev scan head">
+  <title>siska.dev scan head</title>
+  <!-- Reduced from the INTENT region of ../hero/hero-agent.svg.
+       Mirror axis x=32. Square scan fragments imply the head; no enclosing outline. -->
+  <g stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter">
+    <!-- Split crown and temple scan. -->
+    <path d="M24 10h5 M35 10h5 M15 12l3-2 M49 12l-3-2 M8 20h6 M50 20h6 M24 20h4 M36 20h4"/>
+    <!-- Reflected terminal elbows and the stepped lower contour. -->
+    <path d="M6 28h3v4 M58 28h-3v4 M14 46h6 M44 46h6 M23 52h4 M37 52h4 M27 58h2 M35 58h2"/>
+    <!-- Violet occupies the existing side scan, as it does in the hero. -->
+    <path d="M6 38h5 M53 38h5" stroke="#7c3aed"/>
+  </g>
+</svg>

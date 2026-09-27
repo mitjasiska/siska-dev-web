@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" color="#222226" role="img" aria-label="siska.dev R2-C mark">
+  <title>R2-C — forehead scan signal</title>
+  <!-- A's silhouette with its side scans in ink. Violet moves to the actual
+       paired forehead scan at INTENT y98 (x296–305 and x335–344).
+       This tests one source motif, not a newly invented visor. -->
+  <g stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M18 8h10 M36 8h10 M8 20h6v12 M56 20h-6v12 M14 39h5 M45 39h5 M14 46v4h8 M50 46v4h-8 M24 58h4 M36 58h4"/>
+    <path d="M25 20h2 M37 20h2" stroke="#7c3aed"/>
+  </g>
+</svg>

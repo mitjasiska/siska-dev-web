@@ -1,0 +1,99 @@
+---
+import hero from '../../assets/hero/hero-agent.svg?raw';
+import mark from '../../assets/brand/mark.svg?raw';
+
+// Keep the interactive review URL available locally, without publishing it.
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { page: 'identity' } }] : [];
+}
+
+const sizes = [128, 64, 48, 32, 24, 20, 16];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <title>siska.dev / identity review</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <span>siska.dev / identity review</span>
+        <h1>One geometry. Two scales.</h1>
+      </header>
+      <div class="source">
+        <div class="hero" set:html={hero} />
+        <div class="relationship">
+          <div class="lockup"><div class="mark" set:html={mark} /><span>siska.dev</span></div>
+          <p>From the hero's INTENT region:<br />split crown · mirrored elbows · open center · stepped jaw.</p>
+          <p>The reusable mark keeps the scan detail.<br />The favicon uses fewer fragments and 50% heavier strokes.</p>
+        </div>
+      </div>
+      <section aria-labelledby="mark-heading">
+        <h2 id="mark-heading">Identity mark</h2>
+        <div class="sizes">
+          {sizes.map(size => <figure>
+            <div class="sample" style={`width:${size}px;height:${size}px`} set:html={mark} />
+            <figcaption>{size}px</figcaption>
+          </figure>)}
+        </div>
+      </section>
+      <section aria-labelledby="favicon-heading">
+        <h2 id="favicon-heading">Favicon</h2>
+        <div class="sizes">
+          {sizes.map(size => <figure>
+            <img src="/favicon.svg" width={size} height={size} alt={`Favicon at ${size}px`} style="color-scheme:light" />
+            <figcaption>{size}px</figcaption>
+          </figure>)}
+        </div>
+      </section>
+      <div class="tabs">
+        <div class="tab light"><img src="/favicon.svg" width="16" height="16" alt="Light tab icon" />siska.dev — Agentic software<span>×</span></div>
+        <div class="tab dark"><img src="/favicon.svg" width="16" height="16" alt="Dark tab icon" />siska.dev — Agentic software<span>×</span></div>
+        <div class="fallback"><img src="/favicon.ico" width="16" height="16" alt="Generated ICO fallback" />ICO / 16px</div>
+      </div>
+      <footer>Actual CSS sizes · light + dark · SVG sources + generated ICO</footer>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #222226; font: 14px system-ui, sans-serif; }
+  main { max-width: 1060px; margin: auto; padding: 28px 40px; }
+  header span, figcaption, .lockup, .tab, .fallback, footer { font-family: monospace; }
+  header span { font-size: 12px; color: #66666e; }
+  h1 { margin: 12px 0 0; font-size: 30px; letter-spacing: -.035em; font-weight: 500; }
+  h2 { font-size: 16px; font-weight: 500; margin: 0 0 16px; }
+  p { line-height: 1.7; color: #6b6b73; }
+  .source { display: flex; gap: 80px; align-items: center; padding: 15px 0 24px; }
+  .hero { width: 180px; flex-shrink: 0; }
+  .hero :global(svg) { width: 100%; height: auto; }
+  .relationship { flex: 1; }
+  .lockup { display: flex; align-items: center; gap: 18px; font-size: 24px; }
+  .mark { width: 64px; height: 64px; }
+  .mark :global(svg), .sample :global(svg) { width: 100%; height: 100%; display: block; }
+  section { padding: 22px 0; border-top: 1px solid #dedee4; }
+  .sizes { display: flex; align-items: center; gap: 42px; flex-wrap: wrap; }
+  figure { margin: 0; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+  figcaption { color: #7b7b82; font-size: 11px; }
+  img { display: block; flex-shrink: 0; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 16px 0; }
+  .tab { display: flex; align-items: center; gap: 9px; font-size: 11px; padding: 14px; border-radius: 9px 9px 0 0; }
+  .tab span { margin-left: 18px; }
+  .light { color-scheme: light; background: #e9e9ee; }
+  .dark { color-scheme: dark; background: #222226; color: #fafafa; }
+  .fallback { display: flex; align-items: center; gap: 9px; font-size: 11px; color: #77777f; }
+  footer { margin-top: 12px; font-size: 10px; color: #7b7b82; }
+  @media (max-width: 700px) {
+    main { padding: 24px 16px; }
+    .source { gap: 24px; flex-wrap: wrap; }
+    .hero { width: 150px; }
+    .sizes { gap: 24px; }
+    .lockup { font-size: 20px; }
+    .relationship { min-width: 200px; }
+  }
+</style>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" color="#222226" role="img" aria-label="siska.dev R2-B mark">
+  <title>R2-B — articulated scan head</title>
+  <!-- Keep the hero's crown slashes (INTENT y72–76), side elbows (y107–113)
+       and inward jaw elbows (y155–161). Side scan terminals remain black;
+       the violet fragment sits one step inside them. Mirror axis x=32. -->
+  <g stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M22 8h6 M36 8h6 M10 14l4-4 M54 14l-4-4 M6 24h6v10 M58 24h-6v10 M6 43h6 M52 43h6 M17 49h6v5 M47 49h-6v5 M26 60h2 M36 60h2"/>
+    <path d="M18 39h3 M43 39h3" stroke="#7c3aed"/>
+  </g>
+</svg>

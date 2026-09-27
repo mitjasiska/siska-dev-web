@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" color="#222226" role="img" aria-label="siska.dev R2-A mark">
+  <title>R2-A — structured silhouette</title>
+  <!-- R1 refinement: longer split crown, elongated INTENT elbows,
+       and a two-stage jaw. The open center stays empty. Mirror axis x=32. -->
+  <g stroke="currentColor" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M18 8h10 M36 8h10 M8 20h6v12 M56 20h-6v12 M14 46v4h8 M50 46v4h-8 M24 58h4 M36 58h4"/>
+    <path d="M14 39h5 M45 39h5" stroke="#7c3aed"/>
+  </g>
+</svg>

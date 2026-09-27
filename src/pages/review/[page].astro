@@ -1,0 +1,16 @@
+---
+import IdentityR1 from '../../components/review/IdentityR1.astro';
+import IdentityR2 from '../../components/review/IdentityR2.astro';
+
+// Stable local review URLs; no review pages are emitted in production.
+export function getStaticPaths() {
+  return import.meta.env.DEV
+    ? ['identity', 'identity-r1', 'identity-r2'].map(page => ({ params: { page } }))
+    : [];
+}
+
+const { page } = Astro.params;
+if (page === 'identity') return Astro.redirect('/review/identity-r2');
+---
+
+{page === 'identity-r1' ? <IdentityR1 /> : <IdentityR2 />}

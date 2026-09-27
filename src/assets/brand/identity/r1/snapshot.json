@@ -1,0 +1,31 @@
+{
+  "revision": 1,
+  "description": "Exact pre-R2 snapshots. Do not edit or regenerate.",
+  "files": [
+    {
+      "file": "mark.svg",
+      "source": "src/assets/brand/mark.svg",
+      "sha256": "61795BD57C2A37B2CDD266B64D908AFB344FDA2E33CFD52B30F578EAD68A3155"
+    },
+    {
+      "file": "favicon.svg",
+      "source": "public/favicon.svg",
+      "sha256": "6CE432CAC0261002154839D2DD145C01392E42A8F4F9E72DEFA1DF438E5F6D01"
+    },
+    {
+      "file": "favicon.ico",
+      "source": "public/favicon.ico",
+      "sha256": "C66F11FAD788DDEE18401F1B04F1BF59FA4E581CAAAB078B8DCA039F70622638"
+    },
+    {
+      "file": "hero-agent.svg",
+      "source": "src/assets/hero/hero-agent.svg",
+      "sha256": "0488265721BDB32188241E9DD26EE5C3899FCB4758850DD8521B30BDB18F26D1"
+    },
+    {
+      "file": "review-original.astro.txt",
+      "source": "src/pages/review/[page].astro",
+      "sha256": "630AD646A6DB430DF9B2C66AC16095C95B1295C943EE23B5799176906862A7A2"
+    }
+  ]
+}
