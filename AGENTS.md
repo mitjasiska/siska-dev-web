@@ -10,7 +10,7 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 ## Visual identity
 
-Before significant UI or visual changes, inspect `/review/identity` in the dev server. It documents the current hero, mark, favicon, colors, typography, and graphical language. Assets labeled `CURRENT / APPROVED` are the existing baseline; evolve them through explicit design work, not unrelated implementation. Extend this language rather than inventing a separate one. Historical experiments are reference material, not the current source of truth.
+Before significant UI or visual changes, inspect `/design/identity` in the dev server. It is the current visual source of truth for `siska.dev`, documenting the hero artwork, identity mark, favicon, colors, typography, and graphical language. Assets labeled `CURRENT / APPROVED` are the active baseline; evolve them through explicit design work, not unrelated implementation. Extend this language rather than inventing a separate one. Historical `/review/...` identity pages are not current design sources.
 
 ## Documentation
 

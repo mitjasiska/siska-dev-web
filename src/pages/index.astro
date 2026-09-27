@@ -1,5 +1,6 @@
 ---
 import HeroAgent from '../components/HeroAgent.astro';
+import '../styles/typography.css';
 ---
 
 <html lang="en">
@@ -27,7 +28,7 @@ import HeroAgent from '../components/HeroAgent.astro';
 	:global(:root) {
 		--color-ink: #222226;
 		--color-accent: #7c3aed;
-		font-family: system-ui, sans-serif;
+		font-family: var(--font-sans);
 		color: var(--color-ink);
 		background: #fafafa;
 	}
@@ -47,7 +48,7 @@ import HeroAgent from '../components/HeroAgent.astro';
 	}
 
 	.hero-copy { min-width: 0; }
-	.wordmark { margin: 0 0 32px; font: 16px monospace; }
+	.wordmark { margin: 0 0 32px; font: 16px var(--font-mono); }
 	h1 { max-width: 9ch; margin: 0; font-size: clamp(40px, 5vw, 68px); font-weight: 500; line-height: 1.08; letter-spacing: -.045em; }
 
 	@media (max-width: 700px) {

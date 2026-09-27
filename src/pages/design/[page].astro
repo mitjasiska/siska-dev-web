@@ -1,0 +1,243 @@
+---
+import HeroAgent from '../../components/HeroAgent.astro';
+import markUrl from '../../assets/brand/mark.svg?url';
+import markRaw from '../../assets/brand/mark.svg?raw';
+import r1 from '../../assets/brand/identity/r1/mark.svg?url';
+import r2A from '../../assets/brand/identity/r2/mark-a.svg?url';
+import r2B from '../../assets/brand/identity/r2/mark-b.svg?url';
+import '../../styles/typography.css';
+
+// The living design reference is available in dev without publishing it in production.
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { page: 'identity' } }] : [];
+}
+
+const markSizes = [128, 64, 48, 32, 24, 20, 16];
+const faviconSizes = [64, 48, 32, 24, 20, 16];
+const faviconUrl = '/favicon.svg?v=r2c';
+const icoUrl = '/favicon.ico?v=r2c';
+const history = [
+  { name: 'R2-A', detail: 'Broader crown, straighter sides', image: r2A },
+  { name: 'R2-B', detail: 'More hero scan detail', image: r2B },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href={faviconUrl} />
+    <title>siska.dev / Visual identity</title>
+  </head>
+  <body>
+    <main class="reference">
+      <header class="intro">
+        <p class="eyebrow">SISKA.DEV / VISUAL IDENTITY <span>DESIGN REFERENCE</span></p>
+        <h1>One language,<br />three scales.</h1>
+        <p class="intro-note">The current site, from its animated hero to the browser icon. Use these production assets and values as the starting point for visual work.</p>
+        <p class="status">CURRENT / APPROVED <span>Existing baseline · can evolve through explicit design work</span></p>
+      </header>
+
+      <section class="section" aria-labelledby="hero-heading">
+        <div class="section-heading"><div><p class="eyebrow">01 / FULL EXPRESSION</p><h2 id="hero-heading">Hero artwork</h2></div><p>Actual homepage component and SVG, with the same animated workflow signal.</p></div>
+        <div class="hero-stage"><HeroAgent /></div>
+        <p class="asset-path">src/components/HeroAgent.astro → src/assets/hero/hero-agent.svg</p>
+      </section>
+
+      <section class="section" aria-labelledby="mark-heading">
+        <div class="section-heading"><div><p class="eyebrow">02 / REDUCED SYMBOL</p><h2 id="mark-heading">Identity mark</h2></div><p>R2-C retains the split crown, mirrored terminal elbows, open center and stepped jaw. Its violet signal sits on the paired forehead scans.</p></div>
+        <div class="mark-presentations">
+          <div class="mark-stage light-stage"><img src={markUrl} width="176" height="176" alt="Current siska.dev identity mark on the site background" /></div>
+          <div class="mark-stage dark-stage"><div class="dark-mark" role="img" aria-label="Current siska.dev identity mark on a dark background" set:html={markRaw} /></div>
+        </div>
+        <div class="sample-heading"><h3>Actual sizes</h3><p>Use the source mark at 32px and above; the smaller views show why a separate favicon exists.</p></div>
+        <div class="size-grid">
+          {markSizes.map(size => <figure><div class="sample"><img src={markUrl} width={size} height={size} alt={`Identity mark at ${size}px`} /></div><figcaption>{size}px</figcaption></figure>)}
+        </div>
+        <p class="asset-path">CURRENT / APPROVED · R2-C · src/assets/brand/mark.svg</p>
+      </section>
+
+      <section class="section" aria-labelledby="favicon-heading">
+        <div class="section-heading"><div><p class="eyebrow">03 / SMALL-SCALE SPECIALIZATION</p><h2 id="favicon-heading">Favicon</h2></div><p>The same scan head is simplified and given heavier effective strokes for browser sizes. It is a separate hand-authored SVG.</p></div>
+        <div class="size-grid favicon-grid">
+          {faviconSizes.map(size => <figure><div class="sample"><img src={faviconUrl} width={size} height={size} alt={`Current R2-C SVG favicon at ${size}px`} /></div><figcaption>{size}px</figcaption></figure>)}
+        </div>
+        <div class="browser-context">
+          <div class="browser-tab"><img src={faviconUrl} width="16" height="16" alt="" /><span>siska.dev — Agentic software</span><span aria-hidden="true">×</span></div>
+          <div class="ico-fallback"><img src={icoUrl} width="32" height="32" alt="Generated R2-C ICO fallback at 32px" /><span>ICO fallback<br /><small>16 / 32 / 48px raster images</small></span></div>
+        </div>
+        <p class="asset-path">CURRENT / APPROVED · R2-C · public/favicon.svg · public/favicon.ico (generated)</p>
+      </section>
+
+      <section class="section" aria-labelledby="relationship-heading">
+        <div class="section-heading"><div><p class="eyebrow">04 / RELATIONSHIP</p><h2 id="relationship-heading">One source language</h2></div></div>
+        <div class="relationship">
+          <div class="relationship-item relationship-hero"><div class="relationship-art"><HeroAgent /></div><strong>Hero artwork</strong><span>Full expressive figure</span></div>
+          <span class="arrow" aria-hidden="true">→</span>
+          <div class="relationship-item"><div class="relationship-art"><img src={markUrl} width="104" height="104" alt="" /></div><strong>Identity mark</strong><span>INTENT region reduced</span></div>
+          <span class="arrow" aria-hidden="true">→</span>
+          <div class="relationship-item"><div class="relationship-art"><img src={faviconUrl} width="48" height="48" alt="" /></div><strong>Favicon</strong><span>Optically tuned for tabs</span></div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="colors-heading">
+        <div class="section-heading"><div><p class="eyebrow">05 / IMPLEMENTED VALUES</p><h2 id="colors-heading">Colors</h2></div><p>Values come from the homepage CSS and current SVG assets. Ink and accent are the site's named color variables.</p></div>
+        <div class="colors">
+          <div class="color-card"><div class="swatch bg-swatch"></div><strong>Page background</strong><code>#fafafa</code><span>Homepage root background · no token</span></div>
+          <div class="color-card"><div class="swatch ink-swatch"></div><strong>Primary ink</strong><code>#222226</code><span>--color-ink · text and strokes</span></div>
+          <div class="color-card"><div class="swatch accent-swatch"></div><strong>Violet signal</strong><code>#7c3aed</code><span>--color-accent · hero and icon accent</span></div>
+        </div>
+        <p class="detail-note">The favicon SVG switches its ink to <code>#fafafa</code> and violet to <code>#a78bfa</code> for dark browser chrome. The homepage currently defines no secondary-text or border token.</p>
+      </section>
+
+      <section class="section" aria-labelledby="type-heading">
+        <div class="section-heading"><div><p class="eyebrow">06 / CURRENT TYPE</p><h2 id="type-heading">Typography</h2></div><p>Geist Sans and Geist Mono are the approved, locally hosted production pair. Sans uses regular and medium; Mono uses regular.</p></div>
+        <div class="type-samples">
+          <div><span class="type-label">CURRENT / APPROVED · --font-sans · 400 / 500</span><h3>Geist Sans</h3><p class="type-use">Headings, body, navigation and normal UI.</p><p class="headline-sample">Agentic software<br />development.</p><p class="body-sample">A light canvas, dark ink and a precise violet signal. Mitja Šiška · č š ž Č Š Ž</p></div>
+          <div><span class="type-label">CURRENT / APPROVED · --font-mono · 400</span><h3>Geist Mono</h3><p class="type-use">Code, technical labels, metadata and developer-oriented text.</p><p class="wordmark-sample">siska.dev</p><p class="technical-sample">01 / FULL EXPRESSION<br />02 / REDUCED SYMBOL</p><pre class="code-sample"><code>const icoUrl = '/favicon.ico?v=r2c';</code></pre></div>
+        </div>
+        <p class="asset-path">Self-hosted WOFF2 · source and SIL OFL 1.1 license: src/assets/fonts/</p>
+      </section>
+
+      <section class="section" aria-labelledby="language-heading">
+        <div class="section-heading"><div><p class="eyebrow">07 / GRAPHICAL LANGUAGE</p><h2 id="language-heading">What carries through</h2></div></div>
+        <div class="language-list"><span>Reflection symmetry</span><span>Broken horizontal scans</span><span>Square line ends</span><span>Open center</span><span>Paired elbows</span><span>Restrained violet signal</span></div>
+        <p class="detail-note">The hero uses full, medium and faint strokes; the mark preserves recognizable INTENT fragments, and the favicon keeps what reads at 16–32px.</p>
+      </section>
+
+      <section class="section history-section" aria-labelledby="history-heading">
+        <div class="section-heading"><div><p class="eyebrow">08 / PROVENANCE</p><h2 id="history-heading">Previous explorations</h2></div><p>R1 established the first mark. R2-A and R2-B remained experiments; R2-C was selected and promoted to the current production mark and favicon.</p></div>
+        <div class="history-items">
+          <div class="history-item"><img src={r1} width="52" height="52" alt="" /><div><strong>R1</strong><span>Original mark · historical</span></div></div>
+          {history.map(item => <div class="history-item"><img src={item.image} width="52" height="52" alt="" /><div><strong>{item.name}</strong><span>{item.detail} · historical experiment</span></div></div>)}
+          <div class="history-item current-history"><img src={markUrl} width="52" height="52" alt="" /><div><strong>R2-C → Current</strong><span>Approved production baseline</span></div></div>
+        </div>
+        <p class="asset-path">Historical sources: src/assets/brand/identity/r1/ and r2/ · earlier review pages and snapshots remain in Git history.</p>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(:root) { --color-ink: #222226; --color-accent: #7c3aed; font-family: var(--font-sans); color: var(--color-ink); background: #fafafa; }
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; }
+  .reference { max-width: 1200px; margin: auto; padding: 40px 32px 80px; }
+  .intro { padding: 28px 0 70px; }
+  .eyebrow, .asset-path, .type-label { font: 12px/1.5 var(--font-mono); letter-spacing: .06em; }
+  .eyebrow { margin: 0 0 22px; }
+  .intro .eyebrow { display: flex; gap: 24px; justify-content: space-between; }
+  .intro .eyebrow span { opacity: .5; }
+  h1 { margin: 0; font-size: clamp(48px, 7vw, 92px); font-weight: 500; line-height: 1.04; letter-spacing: -.045em; }
+  .intro-note { max-width: 52ch; margin: 26px 0 36px; line-height: 1.65; }
+  .status { display: flex; gap: 18px; align-items: baseline; margin: 0; font: 12px/1.5 var(--font-mono); color: var(--color-accent); }
+  .status span { color: var(--color-ink); opacity: .55; }
+  .section { border-top: 1px solid rgba(34,34,38,.2); padding: 36px 0 72px; }
+  .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 30px; }
+  .section-heading > div { flex: none; }
+  .section-heading .eyebrow { margin-bottom: 10px; }
+  h2 { margin: 0; font-size: clamp(30px, 3vw, 44px); font-weight: 500; line-height: 1.12; letter-spacing: -.035em; }
+  .section-heading > p { max-width: 45ch; margin: 0; line-height: 1.6; opacity: .65; }
+  .hero-stage { display: grid; place-items: center; min-height: 650px; padding: 20px; border: 1px solid rgba(34,34,38,.15); }
+  .asset-path { margin: 16px 0 0; opacity: .55; overflow-wrap: anywhere; }
+  .mark-presentations { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mark-stage { display: grid; place-items: center; min-height: 280px; border: 1px solid rgba(34,34,38,.15); }
+  .light-stage { background: #fafafa; }
+  .dark-stage { background: #222226; }
+  .dark-mark { width: 176px; height: 176px; }
+  .dark-mark :global(svg) { width: 100%; height: 100%; color: #fafafa; }
+  .sample-heading { display: flex; gap: 24px; align-items: baseline; margin: 34px 0 14px; }
+  .sample-heading h3 { margin: 0; font-size: 18px; font-weight: 500; white-space: nowrap; }
+  .sample-heading p { margin: 0; font-size: 14px; opacity: .6; }
+  .size-grid { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: 10px; }
+  .size-grid figure { margin: 0; min-width: 0; }
+  .sample { display: grid; place-items: center; height: 154px; border: 1px solid rgba(34,34,38,.15); }
+  .sample img { display: block; max-width: 100%; }
+  figcaption { margin-top: 8px; font: 12px var(--font-mono); opacity: .65; }
+  .favicon-grid { grid-template-columns: repeat(6, minmax(0,1fr)); }
+  .favicon-grid .sample { height: 100px; }
+  .browser-context { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 26px; align-items: stretch; }
+  .browser-tab { display: flex; gap: 11px; align-items: center; width: 280px; max-width: 100%; height: 42px; padding: 0 13px; border: 1px solid rgba(34,34,38,.15); border-bottom: 2px solid var(--color-accent); border-radius: 8px 8px 0 0; background: #fafafa; font-size: 12px; }
+  .browser-tab span:nth-of-type(1) { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; flex: 1; }
+  .browser-tab span:last-child { opacity: .5; }
+  .ico-fallback { display: flex; gap: 12px; align-items: center; padding: 0 12px; min-height: 42px; font-size: 12px; }
+  .ico-fallback small { opacity: .6; }
+  .relationship { display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid rgba(34,34,38,.15); padding: 24px; }
+  .relationship-item { flex: 1; min-width: 0; text-align: center; }
+  .relationship-art { display: grid; place-items: center; height: 180px; }
+  .relationship-hero .relationship-art :global(.hero-agent) { max-width: 160px; }
+  .relationship-item strong, .relationship-item span { display: block; }
+  .relationship-item strong { font-weight: 500; }
+  .relationship-item span { margin-top: 4px; font-size: 12px; opacity: .6; }
+  .arrow { color: var(--color-accent); font-size: 24px; }
+  .colors { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  .color-card { display: grid; gap: 5px; border: 1px solid rgba(34,34,38,.15); padding: 12px; }
+  .swatch { height: 84px; margin-bottom: 10px; border: 1px solid rgba(34,34,38,.12); }
+  .bg-swatch { background: #fafafa; }
+  .ink-swatch { background: #222226; }
+  .accent-swatch { background: #7c3aed; }
+  .color-card strong { font-weight: 500; }
+  .color-card code { font: 13px var(--font-mono); }
+  .color-card span { font-size: 12px; opacity: .6; }
+  .detail-note { max-width: 88ch; margin: 22px 0 0; line-height: 1.6; font-size: 14px; opacity: .7; }
+  .detail-note code { font-family: var(--font-mono); }
+  .type-samples { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; }
+  .type-samples > div { border-top: 1px solid rgba(34,34,38,.15); padding-top: 14px; }
+  .type-label { opacity: .55; }
+  .type-samples h3 { margin: 18px 0 4px; font-size: 18px; font-weight: 500; }
+  .type-use { margin: 0; font-size: 14px; line-height: 1.6; opacity: .65; }
+  .headline-sample { margin: 24px 0 0; font-size: clamp(40px,5vw,68px); font-weight: 500; line-height: 1.08; letter-spacing: -.045em; }
+  .wordmark-sample { margin: 24px 0 22px; font: 16px var(--font-mono); }
+  .body-sample { margin: 20px 0 0; line-height: 1.6; }
+  .technical-sample { margin: 0 0 22px; font: 12px/1.8 var(--font-mono); letter-spacing: .06em; }
+  .code-sample { margin: 0; overflow-x: auto; font: 13px/1.6 var(--font-mono); }
+  .language-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .language-list span { border: 1px solid rgba(34,34,38,.2); padding: 12px 14px; font: 13px var(--font-mono); }
+  .history-section { padding-bottom: 0; }
+  .history-items { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+  .history-item { display: flex; gap: 10px; align-items: center; min-width: 0; border: 1px solid rgba(34,34,38,.15); padding: 14px; opacity: .58; }
+  .history-item img { flex: none; }
+  .history-item strong, .history-item span { display: block; }
+  .history-item strong { font-size: 13px; font-weight: 500; }
+  .history-item span { margin-top: 4px; font-size: 11px; line-height: 1.35; }
+  .current-history { opacity: 1; border-color: var(--color-accent); }
+  @media (prefers-color-scheme: dark) {
+    /* The production favicon turns light in dark browser chrome. Show its real SVG
+       on a matching surface instead of recoloring or duplicating the asset. */
+    .favicon-grid .sample, .relationship-item:last-child .relationship-art { background: #222226; }
+    .browser-tab { background: #222226; color: #fafafa; }
+  }
+  @media (max-width: 700px) {
+    .reference { padding: 24px 16px 48px; }
+    .intro { padding: 16px 0 55px; }
+    .intro .eyebrow { display: block; }
+    .intro .eyebrow span { display: block; margin-top: 5px; }
+    .status { display: block; }
+    .status span { display: block; margin-top: 5px; }
+    .section { padding: 28px 0 52px; }
+    .section-heading { display: block; margin-bottom: 22px; }
+    .section-heading > p { margin-top: 13px; }
+    .hero-stage { min-height: 0; }
+    .mark-stage { min-height: 180px; }
+    .mark-stage img, .dark-mark { width: 112px; height: 112px; }
+    .sample-heading { display: block; }
+    .sample-heading p { margin-top: 8px; }
+    .size-grid, .favicon-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    .size-grid:not(.favicon-grid) figure:first-child { grid-column: span 2; }
+    .sample { height: 138px; }
+    .favicon-grid .sample { height: 84px; }
+    .relationship { padding: 12px; gap: 6px; }
+    .relationship-art { height: 108px; }
+    .relationship-hero .relationship-art :global(.hero-agent) { max-width: 90px; }
+    .relationship-art img { max-width: 58px; }
+    .relationship-item span { font-size: 10px; }
+    .arrow { font-size: 16px; }
+    .colors { grid-template-columns: 1fr; }
+    .swatch { height: 44px; }
+    .type-samples { grid-template-columns: 1fr; gap: 30px; }
+    .history-items { grid-template-columns: repeat(2,1fr); }
+    .history-item { display: block; }
+    .history-item img { margin-bottom: 8px; }
+  }
+</style>
