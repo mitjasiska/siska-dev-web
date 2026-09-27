@@ -1,0 +1,57 @@
+---
+import markUrl from '../assets/brand/mark.svg?url';
+import GitHub from '../assets/icons/github.svg';
+import LinkedIn from '../assets/icons/linkedin.svg';
+import X from '../assets/icons/x.svg';
+---
+
+<header class="site-header page-container">
+	<a class="site-identity" href="/" aria-label="siska.dev home">
+		<img src={markUrl} width="32" height="32" alt="" />
+		<span>siska.dev</span>
+	</a>
+	<nav aria-label="Social links">
+		<a href="/" aria-label="GitHub"><GitHub width="21" height="21" aria-hidden="true" focusable="false" /></a>
+		<a href="/" aria-label="LinkedIn"><LinkedIn width="19" height="19" aria-hidden="true" focusable="false" /></a>
+		<a href="/" aria-label="X"><X width="19" height="20" aria-hidden="true" focusable="false" /></a>
+	</nav>
+</header>
+
+<style>
+	.site-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding-block: 24px;
+	}
+
+	a { color: inherit; text-decoration: none; }
+	a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+
+	.site-identity {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		min-height: 44px;
+		font-size: 18px;
+		font-weight: 500;
+		letter-spacing: -.035em;
+		white-space: nowrap;
+	}
+
+	.site-identity img { display: block; flex: none; }
+	nav { display: flex; align-items: center; gap: 2px; }
+	nav a { display: grid; place-items: center; width: 44px; height: 44px; color: rgb(34 34 38 / .65); }
+	nav a:hover, nav a:focus-visible { color: var(--color-ink); }
+
+	@media (min-width: 601px) and (max-height: 850px) {
+		.site-header { padding-block: 18px; }
+	}
+
+	@media (max-width: 600px) {
+		.site-header { gap: 8px; padding-block: 16px; }
+		.site-identity { gap: 8px; font-size: 17px; }
+		nav { gap: 0; }
+	}
+</style>

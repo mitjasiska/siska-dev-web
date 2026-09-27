@@ -4,7 +4,7 @@
 `identity/r2/mark-c.svg`. It reduces the INTENT region of
 `../hero/hero-agent.svg` to a split crown, mirrored terminal elbows, open
 center, and stepped jaw, with violet on the paired forehead scans. The mark is
-not part of the homepage wordmark.
+used next to the homepage's `siska.dev` wordmark at 32px.
 
 Use the mark at 32px and above. For browser sizes, use the separately
 hand-authored R2-C `public/favicon.svg`, promoted from

@@ -1,5 +1,6 @@
 ---
 import HeroAgent from '../components/HeroAgent.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import '../styles/typography.css';
 ---
 
@@ -9,16 +10,19 @@ import '../styles/typography.css';
 		<link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg?v=r2c" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content="Mitja Šiška — Software Engineer. Agentic development, developer tooling, and software systems." />
 		<title>siska.dev — Agentic software development</title>
 	</head>
 	<body>
+		<SiteHeader />
 		<main>
-			<section class="hero" aria-labelledby="hero-title">
+			<section class="hero page-container" aria-labelledby="hero-title">
 				<div class="hero-copy">
-					<p class="wordmark">siska.dev</p>
-					<h1 id="hero-title">Agentic software development.</h1>
+					<p class="eyebrow"><span aria-hidden="true"></span>Mitja Šiška / Software Engineer</p>
+					<h1 id="hero-title">Building software with humans and agents.</h1>
+					<p class="supporting-copy">Agentic development, developer tooling, and software systems.</p>
 				</div>
-				<HeroAgent />
+				<div class="hero-artwork"><HeroAgent /></div>
 			</section>
 		</main>
 	</body>
@@ -35,25 +39,35 @@ import '../styles/typography.css';
 
 	:global(*) { box-sizing: border-box; }
 	:global(body) { margin: 0; }
+	:global(.page-container) { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 56px); }
 
 	.hero {
-		display: grid;
-		grid-template-columns: 1fr 1.1fr;
-		align-items: center;
-		gap: 48px;
-		max-width: 1240px;
-		min-height: 100svh;
-		margin-inline: auto;
-		padding: 40px;
+		padding-top: clamp(40px, 6vh, 72px);
+		padding-bottom: 32px;
+		text-align: center;
 	}
 
-	.hero-copy { min-width: 0; }
-	.wordmark { margin: 0 0 32px; font: 16px var(--font-mono); }
-	h1 { max-width: 9ch; margin: 0; font-size: clamp(40px, 5vw, 68px); font-weight: 500; line-height: 1.08; letter-spacing: -.045em; }
+	.hero-copy { max-width: 820px; margin-inline: auto; }
+	.eyebrow { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0 0 24px; font: 13px/1.6 var(--font-mono); }
+	.eyebrow span { width: 6px; height: 6px; flex: none; background: var(--color-accent); }
+	h1 { max-width: 760px; margin: 0 auto; font-size: clamp(44px, 5vw, 68px); font-weight: 500; line-height: 1.08; letter-spacing: -.045em; text-wrap: balance; }
+	.supporting-copy { max-width: 620px; margin: 24px auto 0; font-size: 18px; line-height: 1.6; color: rgb(34 34 38 / .7); text-wrap: balance; }
+	/* Size the existing component's stage; its SVG and workflow stay untouched. */
+	.hero-artwork { width: min(100%, 400px); margin: 28px auto 0; }
 
-	@media (max-width: 700px) {
-		.hero { grid-template-columns: 1fr; align-content: start; gap: 20px; min-height: 0; padding: 28px 16px; }
-		.wordmark { margin-bottom: 18px; font-size: 14px; }
-		h1 { max-width: 14ch; font-size: 38px; }
+	@media (min-width: 601px) and (max-height: 850px) {
+		.hero { padding-top: 24px; padding-bottom: 20px; }
+		.eyebrow { margin-bottom: 20px; }
+		h1 { font-size: clamp(44px, 5vw, 60px); }
+		.supporting-copy { margin-top: 18px; }
+		.hero-artwork { width: min(100%, 340px); margin-top: 12px; }
+	}
+
+	@media (max-width: 600px) {
+		.hero { padding-top: 40px; padding-bottom: 24px; }
+		.eyebrow { gap: 8px; margin-bottom: 22px; font-size: 12px; }
+		h1 { max-width: 440px; font-size: clamp(36px, 10vw, 48px); line-height: 1.1; }
+		.supporting-copy { max-width: 360px; margin-top: 20px; font-size: 16px; }
+		.hero-artwork { width: min(100%, 340px); margin-top: 20px; }
 	}
 </style>
