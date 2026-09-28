@@ -12,7 +12,7 @@ Astro, HTML, CSS, and SVG.
 
 ## Visual identity
 
-The project contains a visual identity reference at `/design/identity` in the local development server. It documents the current hero artwork, identity mark, favicon, colors, typography, and related visual references.
+The visual identity reference is built at [`/design/identity`](https://siska.dev/design/identity). It documents the current hero artwork, identity mark, favicon, colors, typography, and related visual references.
 
 ## Development
 

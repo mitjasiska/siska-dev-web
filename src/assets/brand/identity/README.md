@@ -2,7 +2,7 @@
 
 The current approved production sources are `../mark.svg`,
 `public/favicon.svg`, and `public/favicon.ico`. The living visual reference is
-`/design/identity` in the dev server; it is excluded from production builds.
+`/design/identity` in both development and production builds.
 The old `/review/identity` development URL redirects there.
 
 `r1/mark.svg` and `r1/favicon.svg` preserve the original production mark and

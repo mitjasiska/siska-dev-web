@@ -7,9 +7,9 @@ import r2A from '../../assets/brand/identity/r2/mark-a.svg?url';
 import r2B from '../../assets/brand/identity/r2/mark-b.svg?url';
 import '../../styles/typography.css';
 
-// The living design reference is available in dev without publishing it in production.
+// Publish the current visual reference at /design/identity in every build.
 export function getStaticPaths() {
-  return import.meta.env.DEV ? [{ params: { page: 'identity' } }] : [];
+  return [{ params: { page: 'identity' } }];
 }
 
 const markSizes = [128, 64, 48, 32, 24, 20, 16];

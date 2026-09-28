@@ -13,6 +13,6 @@ strokes. The favicon adapts its ink and violet for dark browser
 chrome. `public/favicon.ico` is a generated 16/32/48px light-palette fallback;
 regenerate it with `npm run icons`.
 
-The development-only `/design/identity` page renders the current animated
+The `/design/identity` page renders the current animated
 hero, these production assets, size tests, colors, and typography in one place.
 See `identity/README.md` for historical experiments.
