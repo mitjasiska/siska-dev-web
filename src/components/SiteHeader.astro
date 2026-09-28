@@ -3,17 +3,24 @@ import markUrl from '../assets/brand/mark.svg?url';
 import GitHub from '../assets/icons/github.svg';
 import LinkedIn from '../assets/icons/linkedin.svg';
 import X from '../assets/icons/x.svg';
+
+// Enable X here when a profile is available; retain its asset and optical sizing.
+const socialLinks = [
+	{ label: 'GitHub', Icon: GitHub, width: 21, height: 21, visible: true },
+	{ label: 'LinkedIn', Icon: LinkedIn, width: 19, height: 19, visible: true },
+	{ label: 'X', Icon: X, width: 19, height: 20, visible: false },
+];
 ---
 
 <header class="site-header page-container">
 	<a class="site-identity" href="/" aria-label="siska.dev home">
-		<img src={markUrl} width="32" height="32" alt="" />
+		<img src={markUrl} width="36" height="36" alt="" />
 		<span>siska.dev</span>
 	</a>
 	<nav aria-label="Social links">
-		<a href="/" aria-label="GitHub"><GitHub width="21" height="21" aria-hidden="true" focusable="false" /></a>
-		<a href="/" aria-label="LinkedIn"><LinkedIn width="19" height="19" aria-hidden="true" focusable="false" /></a>
-		<a href="/" aria-label="X"><X width="19" height="20" aria-hidden="true" focusable="false" /></a>
+		{socialLinks.filter(link => link.visible).map(({ label, Icon, width, height }) => (
+			<a href="/" aria-label={label}><Icon width={width} height={height} aria-hidden="true" focusable="false" /></a>
+		))}
 	</nav>
 </header>
 
@@ -32,7 +39,7 @@ import X from '../assets/icons/x.svg';
 	.site-identity {
 		display: inline-flex;
 		align-items: center;
-		gap: 10px;
+		gap: 8px;
 		min-height: 44px;
 		font-size: 18px;
 		font-weight: 500;
@@ -40,8 +47,8 @@ import X from '../assets/icons/x.svg';
 		white-space: nowrap;
 	}
 
-	.site-identity img { display: block; flex: none; }
-	nav { display: flex; align-items: center; gap: 2px; }
+	.site-identity img { display: block; flex: none; transform: translateY(-1px); }
+	nav { display: flex; align-items: center; }
 	nav a { display: grid; place-items: center; width: 44px; height: 44px; color: rgb(34 34 38 / .65); }
 	nav a:hover, nav a:focus-visible { color: var(--color-ink); }
 
@@ -52,6 +59,5 @@ import X from '../assets/icons/x.svg';
 	@media (max-width: 600px) {
 		.site-header { gap: 8px; padding-block: 16px; }
 		.site-identity { gap: 8px; font-size: 17px; }
-		nav { gap: 0; }
 	}
 </style>

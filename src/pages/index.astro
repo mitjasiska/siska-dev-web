@@ -53,21 +53,23 @@ import '../styles/typography.css';
 	h1 { max-width: 760px; margin: 0 auto; font-size: clamp(44px, 5vw, 68px); font-weight: 500; line-height: 1.08; letter-spacing: -.045em; text-wrap: balance; }
 	.supporting-copy { max-width: 620px; margin: 24px auto 0; font-size: 18px; line-height: 1.6; color: rgb(34 34 38 / .7); text-wrap: balance; }
 	/* Size the existing component's stage; its SVG and workflow stay untouched. */
-	.hero-artwork { width: min(100%, 400px); margin: 28px auto 0; }
+	.hero-artwork { width: min(100%, 432px); margin: 16px auto 0; }
 
 	@media (min-width: 601px) and (max-height: 850px) {
 		.hero { padding-top: 24px; padding-bottom: 20px; }
 		.eyebrow { margin-bottom: 20px; }
 		h1 { font-size: clamp(44px, 5vw, 60px); }
 		.supporting-copy { margin-top: 18px; }
-		.hero-artwork { width: min(100%, 340px); margin-top: 12px; }
+		.hero-artwork { width: min(100%, 358px); margin-top: 0; }
 	}
 
 	@media (max-width: 600px) {
-		.hero { padding-top: 40px; padding-bottom: 24px; }
+		.hero { padding: 40px 12px 24px; }
+		/* Give only the artwork extra room; keep the copy's existing 20px inset. */
+		.hero-copy { padding-inline: 8px; }
 		.eyebrow { gap: 8px; margin-bottom: 22px; font-size: 12px; }
 		h1 { max-width: 440px; font-size: clamp(36px, 10vw, 48px); line-height: 1.1; }
 		.supporting-copy { max-width: 360px; margin-top: 20px; font-size: 16px; }
-		.hero-artwork { width: min(100%, 340px); margin-top: 20px; }
+		.hero-artwork { width: min(100%, 360px); margin-top: 10px; }
 	}
 </style>
