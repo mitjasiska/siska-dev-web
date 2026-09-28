@@ -22,7 +22,7 @@ style class is replaced with a fill attribute. Dimensions and accessibility
 attributes are supplied by `SiteHeader.astro`.
 
 The marks remain trademarks of their respective owners. Refer to their source
-pages for brand usage guidance. GitHub and LinkedIn currently render, with URLs
-intentionally set to `/` until real profile URLs are supplied. X remains in
-`SiteHeader.astro`'s `socialLinks` configuration with `visible: false`; enable it
-there when a profile is available. Its SVG and optical sizing are preserved.
+pages for brand usage guidance. GitHub and LinkedIn link to Mitja's profiles.
+X remains in `SiteHeader.astro`'s `socialLinks` configuration with `visible: false`;
+set its profile URL and enable it there when an account is available. Its SVG and
+optical sizing are preserved.
