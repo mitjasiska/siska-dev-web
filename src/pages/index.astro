@@ -64,12 +64,14 @@ import '../styles/typography.css';
 	}
 
 	@media (max-width: 600px) {
-		.hero { padding: 40px 12px 24px; }
+		.hero { padding: clamp(12px, 3svh, 28px) 12px clamp(12px, 2svh, 20px); }
 		/* Give only the artwork extra room; keep the copy's existing 20px inset. */
 		.hero-copy { padding-inline: 8px; }
-		.eyebrow { gap: 8px; margin-bottom: 22px; font-size: 12px; }
-		h1 { max-width: 440px; font-size: clamp(36px, 10vw, 48px); line-height: 1.1; }
-		.supporting-copy { max-width: 360px; margin-top: 20px; font-size: 16px; }
-		.hero-artwork { width: min(100%, 360px); margin-top: 10px; }
+		.eyebrow { gap: 8px; margin-bottom: clamp(12px, 2svh, 18px); font-size: 12px; }
+		/* Scale the text measure with the type to preserve the balanced three-line wrap. */
+		h1 { max-width: min(90%, 400px); font-size: clamp(31px, 9vw, 40px); line-height: 1.06; }
+		.supporting-copy { max-width: 330px; margin-top: clamp(14px, 2svh, 18px); font-size: 16px; line-height: 1.5; }
+		/* Reserve room for the header and copy, then scale the intact 640 × 760 stage. */
+		.hero-artwork { width: min(100%, clamp(220px, calc((100svh - 340px) * 640 / 760), 360px)); margin-top: clamp(4px, 1svh, 10px); }
 	}
 </style>
