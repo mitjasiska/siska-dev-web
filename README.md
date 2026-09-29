@@ -14,6 +14,8 @@ Astro, HTML, CSS, and SVG.
 
 The visual identity reference is built at [`/design/identity`](https://siska.dev/design/identity). It documents the current hero artwork, identity mark, favicon, colors, typography, and related visual references.
 
+The original `siska.dev` logo, hero artwork, brand-specific graphics, and related visual identity assets are proprietary and protected under the [siska.dev Visual Identity License](LICENSE-IDENTITY.md). Third-party materials remain subject to their respective licenses.
+
 ## Development
 
 ```sh
