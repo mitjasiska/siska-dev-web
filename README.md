@@ -14,8 +14,6 @@ Astro, HTML, CSS, and SVG.
 
 The visual identity reference is built at [`/design/identity`](https://siska.dev/design/identity). It documents the current hero artwork, identity mark, favicon, colors, typography, and related visual references.
 
-The original `siska.dev` logo, hero artwork, brand-specific graphics, and related visual identity assets are proprietary and protected under the [siska.dev Visual Identity License](LICENSE-IDENTITY.md). Third-party materials remain subject to their respective licenses.
-
 ## Development
 
 ```sh
@@ -26,6 +24,10 @@ npm run preview
 ```
 
 Manage the background development server with `npx astro dev status`, `npx astro dev logs`, and `npx astro dev stop`.
+
+## Licensing
+
+Unless otherwise stated, source code and configuration files are MIT licensed. Original content and identity or brand assets—including logos, artwork, and graphics—are Copyright © 2026 Mitja Šiška, all rights reserved. See [LICENSE.md](LICENSE.md) for the full terms and third-party exceptions.
 
 ## Repository guidance
 
