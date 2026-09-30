@@ -64,14 +64,13 @@ import '../styles/typography.css';
 	}
 
 	@media (max-width: 600px) {
-		:global(body) { display: grid; grid-template-rows: auto minmax(0, 1fr); height: 100svh; }
-		main { min-height: 0; }
+		:global(body) { display: grid; grid-template-rows: auto 1fr; min-height: 100svh; }
+		main { display: grid; }
 		.hero {
 			display: grid;
-			grid-template-rows: auto minmax(0, 1fr);
+			grid-template-rows: auto minmax(15rem, 1fr);
 			row-gap: clamp(4px, 1svh, 10px);
-			height: 100%;
-			padding: clamp(12px, 3svh, 28px) 12px clamp(12px, 2svh, 20px);
+			padding: clamp(4px, calc(3svh - 16px), 12px) 12px clamp(12px, 2svh, 20px);
 		}
 		/* Give only the artwork extra room; keep the copy's existing 20px inset. */
 		.hero-copy { width: 100%; padding-inline: 8px; }
@@ -79,8 +78,9 @@ import '../styles/typography.css';
 		/* Scale the text measure with the type to preserve the balanced three-line wrap. */
 		h1 { max-width: min(90%, 400px); font-size: clamp(31px, 9vw, 40px); line-height: 1.06; }
 		.supporting-copy { max-width: 330px; margin-top: clamp(14px, 2svh, 18px); font-size: 16px; line-height: 1.5; }
-		/* Fit the intact SVG into the space left by the actual header and copy. */
-		.hero-artwork { width: min(100%, 360px); height: 100%; min-height: 0; max-height: calc(360px * 760 / 640); margin: 0 auto; }
+		/* Grow with the available space; the minimum row height allows natural scrolling. */
+		.hero-artwork { position: relative; width: min(100%, 378px); min-height: 0; max-height: calc(378px * 760 / 640); margin: 0 auto; }
+		.hero-artwork :global(.hero-agent) { position: absolute; inset: 0; }
 		.hero-artwork :global(.hero-agent), .hero-artwork :global(.hero-agent svg) { height: 100%; }
 	}
 </style>
