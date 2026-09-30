@@ -1,0 +1,73 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import '../styles/typography.css';
+
+interface Props {
+  title: string;
+  description: string;
+  published?: Date;
+}
+
+const { title, description, published } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg?v=r2c" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title} — siska.dev</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <SiteHeader />
+    <main id="content" tabindex="-1">
+      <header class="writing-heading">
+        {published && <a class="back-link" href="/writings/">← Writings</a>}
+        <h1>{title}</h1>
+        <p class="description">{description}</p>
+        {published && (
+          <time datetime={published.toISOString().slice(0, 10)}>
+            {published.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}
+          </time>
+        )}
+      </header>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(:root) {
+    --color-ink: #222226;
+    --color-accent: #7c3aed;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: #fafafa;
+  }
+
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; }
+  :global(.page-container) { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 56px); }
+  :global(main a) { color: var(--color-accent); text-underline-offset: .2em; }
+  :global(main a:hover) { text-decoration-thickness: 2px; }
+  :global(a:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+
+  main { max-width: 760px; margin-inline: auto; padding: clamp(40px, 6vw, 80px) 24px 96px; overflow-wrap: anywhere; }
+  .writing-heading { margin-bottom: 48px; }
+  h1 { margin: 0; font-size: clamp(36px, 5vw, 52px); font-weight: 500; line-height: 1.12; letter-spacing: -.04em; text-wrap: balance; }
+  .description { margin: 20px 0 0; font-size: 18px; line-height: 1.6; color: rgb(34 34 38 / .7); }
+  time { display: block; margin-top: 24px; font: 12px/1.6 var(--font-mono); color: rgb(34 34 38 / .7); }
+  .back-link { display: inline-block; margin-bottom: 32px; font-size: 14px; text-decoration: none; }
+  .back-link:hover { text-decoration: underline; }
+  .skip-link { position: absolute; top: 8px; left: 20px; padding: 12px; background: #fafafa; color: var(--color-ink); transform: translateY(-200%); z-index: 1; }
+  .skip-link:focus { transform: none; }
+
+  @media (max-width: 600px) {
+    main { padding: 40px 20px 64px; }
+    .writing-heading { margin-bottom: 36px; }
+    .description { font-size: 17px; }
+  }
+</style>

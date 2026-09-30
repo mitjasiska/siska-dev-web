@@ -1,0 +1,64 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import WritingsLayout from '../../layouts/WritingsLayout.astro';
+
+export async function getStaticPaths() {
+  return (await getCollection('writings')).map(writing => ({
+    params: { slug: writing.id },
+    props: { writing },
+  }));
+}
+
+interface Props {
+  writing: CollectionEntry<'writings'>;
+}
+
+const { writing } = Astro.props;
+const { Content } = await render(writing);
+---
+
+<WritingsLayout {...writing.data}>
+  <article class="prose" aria-label={writing.data.title}>
+    <Content />
+  </article>
+</WritingsLayout>
+
+<style>
+  .prose { font-size: 18px; line-height: 1.8; }
+  .prose :global(> :first-child) { margin-top: 0; }
+  .prose :global(> :last-child) { margin-bottom: 0; }
+  .prose :global(p), .prose :global(ul), .prose :global(ol) { margin-block: 0 1.4em; }
+  .prose :global(h1), .prose :global(h2), .prose :global(h3),
+  .prose :global(h4), .prose :global(h5), .prose :global(h6) {
+    margin: 2em 0 .7em;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -.025em;
+    scroll-margin-top: 24px;
+  }
+  .prose :global(h1) { font-size: 2em; }
+  .prose :global(h2) { font-size: 1.6em; }
+  .prose :global(h3) { font-size: 1.3em; }
+  .prose :global(h4), .prose :global(h5), .prose :global(h6) { font-size: 1em; }
+  .prose :global(strong) { font-weight: 500; }
+  .prose :global(ul), .prose :global(ol) { padding-left: 1.5em; }
+  .prose :global(li) { padding-left: .2em; margin-block: .35em; }
+  .prose :global(li > ul), .prose :global(li > ol), .prose :global(li > p) { margin-block: .5em; }
+  .prose :global(code) { font-size: .85em; }
+  .prose :global(:not(pre) > code) { padding: .15em .3em; background: rgb(34 34 38 / .05); }
+  .prose :global(pre) { max-width: 100%; overflow-x: auto; padding: 20px; margin-block: 1.6em; line-height: 1.65; overflow-wrap: normal; }
+  .prose :global(pre code) { padding: 0; background: none; }
+  .prose :global(blockquote) { border-left: 2px solid var(--color-accent); margin: 1.6em 0; padding-left: 24px; color: rgb(34 34 38 / .75); }
+  .prose :global(blockquote > :last-child) { margin-bottom: 0; }
+  .prose :global(img) { display: block; max-width: 100%; height: auto; margin-block: 1.6em; }
+  .prose :global(table) { display: block; width: max-content; max-width: 100%; overflow-x: auto; overflow-wrap: normal; border-collapse: collapse; margin-block: 1.6em; font-size: .9em; }
+  .prose :global(th), .prose :global(td) { border-bottom: 1px solid rgb(34 34 38 / .15); padding: 10px 16px; text-align: left; }
+  .prose :global(th) { font-weight: 500; }
+  .prose :global(hr) { margin-block: 2.5em; border: 0; border-top: 1px solid rgb(34 34 38 / .15); }
+
+  @media (max-width: 600px) {
+    .prose { font-size: 17px; }
+    .prose :global(pre) { padding: 16px; }
+    .prose :global(blockquote) { padding-left: 18px; }
+  }
+</style>

@@ -12,6 +12,6 @@ font package is needed.
 | `geist-mono-variable.woff2` | `dist/fonts/geist-mono/GeistMono-Variable.woff2` | 1.700 | 71,368 | `fba8f577f38a2bbcbe818efa6348dd58f36303a10b8737c42fefad275be563ab` |
 
 Total WOFF2 payload: **141,020 bytes** (137.7 KiB). The files support a variable
-weight axis from 100 to 900; current production CSS registers Sans 400/500 and
+weight axis from 100 to 900; current production CSS registers Sans 400–600 and
 Mono 400. Both files include Slovenian `č š ž Č Š Ž`. The original copyright notice
 and full SIL Open Font License 1.1 are in [LICENSE-Geist.txt](./LICENSE-Geist.txt).

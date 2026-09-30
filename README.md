@@ -25,6 +25,13 @@ npm run preview
 
 Manage the background development server with `npx astro dev status`, `npx astro dev logs`, and `npx astro dev stop`.
 
+## Writings
+
+Publish by adding `writings/<slug>/README.md` with `title`, `description`, and
+`published` frontmatter. Astro automatically includes it at `/writings/<slug>/`
+and on the `/writings/` index. See [the publishing convention](writings/README.md)
+for the exact format and image/link guidance.
+
 ## Licensing
 
 Unless otherwise stated, source code and configuration files are MIT licensed. Original content and identity or brand assets—including logos, artwork, and graphics—are Copyright © 2026 Mitja Šiška, all rights reserved. See [LICENSE.md](LICENSE.md) for the full terms and third-party exceptions.
