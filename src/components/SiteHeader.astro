@@ -84,9 +84,18 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 	}
 
 	@media (max-width: 520px) {
-		/* Keep internal navigation together below the identity and external links. */
-		.site-header { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); row-gap: 0; }
-		.site-nav { grid-column: 1 / -1; grid-row: 2; gap: 24px; }
+		/* Anchor the second row to the header edges with equally sized tap targets. */
+		.site-header { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); row-gap: 8px; }
+		.site-nav {
+			grid-column: 1 / -1;
+			grid-row: 2;
+			justify-self: stretch;
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 0;
+			border-top: 1px solid rgb(34 34 38 / .12);
+			padding-top: 4px;
+		}
 		.social-links { grid-column: 2; grid-row: 1; }
 	}
 </style>
