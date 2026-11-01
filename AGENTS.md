@@ -1,3 +1,10 @@
+## Linear task target
+
+Use this default target for issues authored for this repository when the user does not specify a different target:
+
+- Team: **Development** (key: `DEV`).
+- Project: **[siska.dev Website](https://linear.app/mitjasiska/project/siskadev-website-bdc1e5eff08e)**.
+
 ## Development
 
 When starting the dev server, use background mode:
