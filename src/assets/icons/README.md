@@ -22,7 +22,6 @@ style class is replaced with a fill attribute. Dimensions and accessibility
 attributes are supplied by `SiteHeader.astro`.
 
 The marks remain trademarks of their respective owners. Refer to their source
-pages for brand usage guidance. GitHub and LinkedIn link to Mitja's profiles.
-X remains in `SiteHeader.astro`'s `socialLinks` configuration with `visible: false`;
-set its profile URL and enable it there when an account is available. Its SVG and
-optical sizing are preserved.
+pages for brand usage guidance. GitHub, LinkedIn, and X link to Mitja's profiles.
+The shared header displays them in that order, using the SVGs' optical sizing
+and the same monochrome link styling.
