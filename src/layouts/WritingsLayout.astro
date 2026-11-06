@@ -67,7 +67,8 @@ const { title, description, published, showHeading = true } = Astro.props;
   .skip-link:focus { transform: none; }
 
   @media (max-width: 600px) {
-    main { padding: 40px 20px 64px; }
+    /* The header's tap targets and bottom padding already contribute to the gap. */
+    main { padding: 8px 20px 64px; }
     .writing-heading { margin-bottom: 36px; }
     .description { font-size: 17px; }
   }

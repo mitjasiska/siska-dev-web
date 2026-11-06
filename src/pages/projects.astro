@@ -5,19 +5,21 @@ const projectUrl = 'https://github.com/mitjasiska/agentic-workflows';
 ---
 
 <PageLayout title="Projects" description="Selected software, tools, and experiments." showHeading={false}>
-  <article class="project" aria-labelledby="agentic-workflows-title">
+  <a class="project" href={projectUrl} aria-labelledby="agentic-workflows-title agentic-workflows-destination">
     <h1 id="agentic-workflows-title">Agentic Workflows</h1>
     <p>An opinionated framework that turns human intent into reviewed software through coordinated AI agents.</p>
-    <a class="project-destination" href={projectUrl}>GitHub <span aria-hidden="true">↗</span></a>
-  </article>
+    <span class="project-destination" id="agentic-workflows-destination">GitHub <span aria-hidden="true">↗</span></span>
+  </a>
 </PageLayout>
 
 <style>
-  .project { border: 1px solid rgb(34 34 38 / .18); padding: clamp(24px, 4vw, 40px); }
+  .project { display: block; border: 1px solid rgb(34 34 38 / .15); padding: clamp(20px, 3vw, 28px); color: var(--color-ink); text-decoration: none; }
+  .project:hover { border-color: rgb(124 58 237 / .5); }
+  .project:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
   h1 { margin: 0; font-size: 28px; font-weight: 500; line-height: 1.2; letter-spacing: -.035em; }
-  p { max-width: 52ch; margin: 12px 0; font-size: 18px; line-height: 1.65; text-wrap: pretty; color: rgb(34 34 38 / .8); }
-  .project-destination { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; color: rgb(34 34 38 / .65); font-size: 14px; text-decoration: none; }
-  .project-destination:hover, .project-destination:focus-visible { color: var(--color-accent); text-decoration: underline; text-underline-offset: .2em; }
+  p { max-width: 52ch; margin: 12px 0 16px; font-size: 18px; line-height: 1.65; text-wrap: pretty; color: rgb(34 34 38 / .8); }
+  .project-destination { display: inline-flex; align-items: center; gap: 4px; color: rgb(34 34 38 / .65); font-size: 14px; line-height: 1.5; }
+  .project:hover .project-destination, .project:focus-visible .project-destination { color: var(--color-accent); text-decoration: underline; text-underline-offset: .2em; }
 
   @media (max-width: 600px) {
     h1 { font-size: 24px; }
